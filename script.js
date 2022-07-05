@@ -50,6 +50,25 @@ const acronymOrganisationPairs = {
     "WG": "Welsh Government"
 }; 
 
+/*Because of the possibility of the user submitting an acronym in the wrong mix 
+of lower and upper case eg hmrc instead of HMRC or HOFC instead of HofC, I can't 
+just use an if condition like:
+acronymOrganisationPairs.hasOwnProperty(userSearchedFor) == true
+Since none of the acronyms only differ by case (eg hMrc vs HMRC)
+I can just create a new object with all the keys of the first changed to upper case
+then later when I get the input from the user, I can change that to upper too*/
+
+const transformedObject = {};
+
+//loop through the original object to get the keys and values for the new one
+for (let x in acronymOrganisationPairs) {
+    let changedKey = x.toUpperCase();
+    transformedObject[changedKey] = acronymOrganisationPairs[x];
+}
+
+console.log(transformedObject);
+
+
 const form = document.getElementById("form1");
 
 form.addEventListener("submit", handleSearch);
@@ -57,19 +76,27 @@ form.addEventListener("submit", handleSearch);
 function handleSearch(event) {
     event.preventDefault();
 
+
+
     let userSearchedFor = document.getElementById("userInput").value;
 
     console.log(userSearchedFor);
 
+    let transformedUserSearchedFor = userSearchedFor.toUpperCase();
+    console.log(transformedUserSearchedFor);
+
     let whereToDisplayResultIfFound = document.getElementById("fullOrgName");
 
+    //first clear the paragraph in case a previous search has already been done
+    whereToDisplayResultIfFound.innerHTML = "";
+
     if (
-        acronymOrganisationPairs.hasOwnProperty(userSearchedFor) == true
+       transformedObject.hasOwnProperty(transformedUserSearchedFor) == true
     ) {
-        whereToDisplayResultIfFound.innerText = `You searched for '${userSearchedFor}', the full organisation name associated with that acronym is '${acronymOrganisationPairs[userSearchedFor]}'`;
+        whereToDisplayResultIfFound.innerHTML = `You searched for '${userSearchedFor}'.<br><br>The full organisation name associated with that acronym is <span class="bold-red">'${transformedObject[transformedUserSearchedFor]}'</span>.`;
     }
 
     else {
         alert ("Sorry, no such acronym exists. Please try again using different letters");
     }
-} 
+}

@@ -317,6 +317,8 @@ form.addEventListener("submit", handleSearch);
 function handleSearch(event) {
     event.preventDefault();
 
+    //need this for the condition to show the alert when no such acronym exists
+    let atLeastPartiallyExists = false;
 
 
     let userSearchedFor = document.getElementById("userInput").value;
@@ -335,9 +337,53 @@ function handleSearch(event) {
        transformedObject.hasOwnProperty(transformedUserSearchedFor) == true
     ) {
        whereToDisplayResultIfFound.innerHTML = `The full organisation name associated with that acronym is <span class="bold-red">'${transformedObject[transformedUserSearchedFor]}'</span>.`;
+       atLeastPartiallyExists = true;
     }
 
-    else {
-        alert ("Sorry, no such acronym exists. Please try again using different letters");
+    /* need a for in loop and a nested set of if/else if conditions here to deal with partial matching */
+
+    for (let x in transformedObject) {
+
+        if (//i.e if the user only searched two letters
+            userSearchedFor.length == 2 && transformedUserSearchedFor[0] == x[0] && transformedUserSearchedFor[1] == x[1]
+        ) {
+
+            //first clear the paragraph in case the if condition before the loop has also been satisfied
+            whereToDisplayResultIfFound.innerHTML = "";
+
+            whereToDisplayResultIfFound.innerHTML += `<span class="bold-red">'${transformedObject[x]}'</span><br>`;
+            atLeastPartiallyExists = true;
+        }
+
+        else if (//i.e if the user only searched three letters
+            userSearchedFor.length == 3 && transformedUserSearchedFor[0] == x[0] && transformedUserSearchedFor[1] == x[1] &&
+            transformedUserSearchedFor[2] == x[2]
+        ) {
+
+            //first clear the paragraph in case the if condition before the loop has also been satisfied
+            whereToDisplayResultIfFound.innerHTML = "";
+
+            whereToDisplayResultIfFound.innerHTML += `<span class="bold-red">'${transformedObject[x]}'</span><br>`;
+            atLeastPartiallyExists = true;
+        }
+
+        else if (//i.e if the user only searched four letters
+            userSearchedFor.length == 4 && transformedUserSearchedFor[0] == x[0] && transformedUserSearchedFor[1] == x[1] &&
+            transformedUserSearchedFor[2] == x[2] && transformedUserSearchedFor[3] == x[3]
+        ) {
+
+            //first clear the paragraph in case the if condition before the loop has also been satisfied
+            whereToDisplayResultIfFound.innerHTML = "";
+
+            whereToDisplayResultIfFound.innerHTML += `<span class="bold-red">'${transformedObject[x]}'</span><br>`;
+            atLeastPartiallyExists = true;
+        }
+
+       
     }
-}
+
+    if (atLeastPartiallyExists == false) {
+        alert ("Sorry, no such acronym exists. Please try again using different letters"); 
+    }
+
+} 

@@ -69,6 +69,247 @@ for (let x in acronymOrganisationPairs) {
 console.log(transformedObject);
 
 
+
+
+
+//now to create autocomplete functionality
+let userTyped = document.getElementById("userInput");
+let dropdown = document.getElementById("acros")
+
+userTyped.addEventListener("keyup", addDropdownOptions);
+
+function addDropdownOptions () {
+
+    //first clear the paragraph in case a previous search has already been done
+    document.getElementById("fullOrgName").innerHTML = "";
+
+    //get the letter(s) the user typed
+    lettersTyped = userTyped.value;
+    console.log(lettersTyped);
+
+    //remove existing dropdown from previous searches
+    removeAllChildNodes(dropdown);
+
+    //call different fns based on the number of letters typed so far
+    switch(lettersTyped.length){
+        case 1:
+        dropdownOne(lettersTyped);
+        break;
+        case 2:
+        dropdownTwo(lettersTyped);
+        break;
+        case 3:
+        dropdownThree(lettersTyped);
+        break;
+        case 4:
+        dropdownFour(lettersTyped);
+        break;
+        case 5:
+        dropdownFive(lettersTyped);
+        break;
+        default:
+        console.log("No letters typed yet")
+        }
+    
+    
+}
+    
+    
+function removeAllChildNodes(parent) {
+    while (parent.firstChild) {
+        parent.removeChild(parent.firstChild);
+    }
+}
+    
+function dropdownOne(lettersTyped) {
+    console.log("One letter typed so far");
+    
+    /*to deal with case sensitivity since the first letter is always upper case 
+    in the original object*/
+    let transformedLettersTyped = lettersTyped.toUpperCase();
+    
+    /*loop through all the properties of the original object and check if
+    the first letter matches that which the user typed. If it does, add that 
+    property in the dropdown list*/
+    
+    for (let x in acronymOrganisationPairs) {
+    
+        if (transformedLettersTyped[0] === x[0]) {
+            console.log(x);
+    
+            //create a html option element for the property
+            const optionToBeAdded = document.createElement("option");
+    
+            //write into it
+            optionToBeAdded.innerHTML = x;
+
+            //now add it to the dropdown
+            dropdown.appendChild(optionToBeAdded);
+
+            //make the option clickable; it should write into the searchbar when clicked
+            optionToBeAdded.addEventListener("click", autoFillSearchbar)
+        }
+
+    }
+
+
+
+}
+
+function dropdownTwo(lettersTyped) {
+    console.log("Two letters typed so far");
+
+    /*to deal with case sensitivity (my if condition will compare using 
+    the transformed object's properties instead*/
+    let transformedLettersTyped = lettersTyped.toUpperCase();
+
+    for (let x in transformedObject) {
+
+        if(
+            transformedLettersTyped[0] === x[0] && transformedLettersTyped[1] === x[1]
+        ) {
+
+            console.log(x);
+
+            //create a html option element for the property
+            const optionToBeAdded = document.createElement("option");
+
+            //write into it
+            optionToBeAdded.innerHTML = x;
+
+            //now add it to the dropdown
+            dropdown.appendChild(optionToBeAdded);
+
+            //make the option clickable; it should write into the searchbar when clicked
+            optionToBeAdded.addEventListener("click", autoFillSearchbar)
+        }
+
+    }
+
+
+}
+
+function dropdownThree(lettersTyped) {
+    console.log("Three letters typed so far");
+
+    /*to deal with case sensitivity (my if condition will compare using 
+    the transformed object's properties instead*/
+    let transformedLettersTyped = lettersTyped.toUpperCase();
+
+    for (let x in transformedObject) {
+
+        if(
+            transformedLettersTyped[0] === x[0] && transformedLettersTyped[1] === x[1] &&
+            transformedLettersTyped[2] === x[2]
+        ) {
+
+            console.log(x);
+
+            //create a html option element for the property
+            const optionToBeAdded = document.createElement("option");
+
+            //write into it
+            optionToBeAdded.innerHTML = x;
+
+            //now add it to the dropdown
+            dropdown.appendChild(optionToBeAdded);
+
+            //make the option clickable; it should write into the searchbar when clicked
+            optionToBeAdded.addEventListener("click", autoFillSearchbar)
+        }
+
+    }
+
+
+}
+
+function dropdownFour(lettersTyped) {
+    console.log("Four letters typed so far");
+
+    /*to deal with case sensitivity (my if condition will compare using 
+    the transformed object's properties instead*/
+    let transformedLettersTyped = lettersTyped.toUpperCase();
+
+
+    for (let x in transformedObject) {
+
+        if(
+            transformedLettersTyped[0] === x[0] && transformedLettersTyped[1] === x[1] &&
+            transformedLettersTyped[2] === x[2] && transformedLettersTyped[3] === x[3]
+        ) {
+
+            console.log(x);
+
+            //create a html option element for the property
+            const optionToBeAdded = document.createElement("option");
+
+            //write into it
+            optionToBeAdded.innerHTML = x;
+
+            //now add it to the dropdown
+            dropdown.appendChild(optionToBeAdded);
+
+            //make the option clickable; it should write into the searchbar when clicked
+            optionToBeAdded.addEventListener("click", autoFillSearchbar)
+        }
+
+    }
+
+
+
+}
+
+function dropdownFive(lettersTyped) {
+    console.log("Five letters typed");
+
+    /*to deal with case sensitivity (my if condition will compare using 
+    the transformed object's properties instead*/
+    let transformedLettersTyped = lettersTyped.toUpperCase();
+
+
+    for (let x in transformedObject) {
+
+        if(
+            transformedLettersTyped[0] === x[0] && transformedLettersTyped[1] === x[1] &&
+            transformedLettersTyped[2] === x[2] && transformedLettersTyped[3] === x[3] &&
+            transformedLettersTyped[4] === x[4]
+        ) {
+
+            console.log(x);
+
+            //create a html option element for the property
+            const optionToBeAdded = document.createElement("option");
+
+            //write into it
+            optionToBeAdded.innerHTML = x;
+
+            //now add it to the dropdown
+            dropdown.appendChild(optionToBeAdded);
+
+            //make the option clickable; it should write into the searchbar when clicked
+            optionToBeAdded.addEventListener("click", autoFillSearchbar)
+        }
+
+    }
+
+
+
+
+}
+
+function autoFillSearchbar() {
+
+    document.getElementById("userInput").value = this.value;
+
+}
+
+
+
+
+
+
+
+//now to deal with the actual checking of the user input
 const form = document.getElementById("form1");
 
 form.addEventListener("submit", handleSearch);
@@ -93,7 +334,7 @@ function handleSearch(event) {
     if (
        transformedObject.hasOwnProperty(transformedUserSearchedFor) == true
     ) {
-        whereToDisplayResultIfFound.innerHTML = `You searched for '${userSearchedFor}'.<br><br>The full organisation name associated with that acronym is <span class="bold-red">'${transformedObject[transformedUserSearchedFor]}'</span>.`;
+       whereToDisplayResultIfFound.innerHTML = `The full organisation name associated with that acronym is <span class="bold-red">'${transformedObject[transformedUserSearchedFor]}'</span>.`;
     }
 
     else {

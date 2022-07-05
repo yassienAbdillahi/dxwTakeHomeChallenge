@@ -49,3 +49,27 @@ const acronymOrganisationPairs = {
     "Wal": "Wales Office",
     "WG": "Welsh Government"
 }; 
+
+const form = document.getElementById("form1");
+
+form.addEventListener("submit", handleSearch);
+
+function handleSearch(event) {
+    event.preventDefault();
+
+    let userSearchedFor = document.getElementById("userInput").value;
+
+    console.log(userSearchedFor);
+
+    let whereToDisplayResultIfFound = document.getElementById("fullOrgName");
+
+    if (
+        acronymOrganisationPairs.hasOwnProperty(userSearchedFor) == true
+    ) {
+        whereToDisplayResultIfFound.innerText = `You searched for '${userSearchedFor}', the full organisation name associated with that acronym is '${acronymOrganisationPairs[userSearchedFor]}'`;
+    }
+
+    else {
+        alert ("Sorry, no such acronym exists. Please try again using different letters");
+    }
+} 

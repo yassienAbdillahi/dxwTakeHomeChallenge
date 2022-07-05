@@ -22,9 +22,9 @@
         <main>
             <section id="userInputSection">
                 <h2>Search any acronym!</h2>
-                <form>
+                <form id="form1">
                     <label for="userInput">Type any two to five-letter acronym to see the corresponding government organisation</label>
-                    <input id="userInput" type="search" minlength="2" maxlength="5" name="acronymToSearch">
+                    <input id="userInput" type="search" minlength="2" maxlength="5" name="acronymToSearch" placeholder="e.g. HMRC">
 
                     <button type="submit">Search</button>
                 </form>
@@ -32,7 +32,7 @@
             </section>
 
             <section id="displaySearchResultsSection">
-
+                <p id="fullOrgName"></p>
             </section>
         </main>
 

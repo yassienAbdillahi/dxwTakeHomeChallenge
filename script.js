@@ -333,12 +333,6 @@ function handleSearch(event) {
     //first clear the paragraph in case a previous search has already been done
     whereToDisplayResultIfFound.innerHTML = "";
 
-    if (
-       transformedObject.hasOwnProperty(transformedUserSearchedFor) == true
-    ) {
-       whereToDisplayResultIfFound.innerHTML = `The full organisation name associated with that acronym is <span class="bold-red">'${transformedObject[transformedUserSearchedFor]}'</span>.`;
-       atLeastPartiallyExists = true;
-    }
 
     /* need a for in loop and a nested set of if/else if conditions here to deal with partial matching */
 
@@ -347,10 +341,6 @@ function handleSearch(event) {
         if (//i.e if the user only searched two letters
             userSearchedFor.length == 2 && transformedUserSearchedFor[0] == x[0] && transformedUserSearchedFor[1] == x[1]
         ) {
-
-            //first clear the paragraph in case the if condition before the loop has also been satisfied
-            whereToDisplayResultIfFound.innerHTML = "";
-
             whereToDisplayResultIfFound.innerHTML += `<span class="bold-red">'${transformedObject[x]}'</span><br>`;
             atLeastPartiallyExists = true;
         }
@@ -359,10 +349,6 @@ function handleSearch(event) {
             userSearchedFor.length == 3 && transformedUserSearchedFor[0] == x[0] && transformedUserSearchedFor[1] == x[1] &&
             transformedUserSearchedFor[2] == x[2]
         ) {
-
-            //first clear the paragraph in case the if condition before the loop has also been satisfied
-            whereToDisplayResultIfFound.innerHTML = "";
-
             whereToDisplayResultIfFound.innerHTML += `<span class="bold-red">'${transformedObject[x]}'</span><br>`;
             atLeastPartiallyExists = true;
         }
@@ -371,10 +357,14 @@ function handleSearch(event) {
             userSearchedFor.length == 4 && transformedUserSearchedFor[0] == x[0] && transformedUserSearchedFor[1] == x[1] &&
             transformedUserSearchedFor[2] == x[2] && transformedUserSearchedFor[3] == x[3]
         ) {
+            whereToDisplayResultIfFound.innerHTML += `<span class="bold-red">'${transformedObject[x]}'</span><br>`;
+            atLeastPartiallyExists = true;
+        }
 
-            //first clear the paragraph in case the if condition before the loop has also been satisfied
-            whereToDisplayResultIfFound.innerHTML = "";
-
+        else if (//i.e if the user only searched five letters
+            userSearchedFor.length == 4 && transformedUserSearchedFor[0] == x[0] && transformedUserSearchedFor[1] == x[1] &&
+            transformedUserSearchedFor[2] == x[2] && transformedUserSearchedFor[3] == x[3] && transformedUserSearchedFor[4] == x[4]
+        ) {
             whereToDisplayResultIfFound.innerHTML += `<span class="bold-red">'${transformedObject[x]}'</span><br>`;
             atLeastPartiallyExists = true;
         }
